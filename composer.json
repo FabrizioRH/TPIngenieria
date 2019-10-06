@@ -1,0 +1,11 @@
+{
+    "name": "fabri/tp-ingenieria",
+    "require": {
+        "phpunit/phpunit": "^8.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app"
+        }
+    }
+}
