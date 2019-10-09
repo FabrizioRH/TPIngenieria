@@ -47,9 +47,9 @@ class FuncionesBasicasTest extends \PHPUnit\Framework\TestCase {
 
 	public function testNoSePuedeCrearConSalarioVacio() {
 	  $this->expectException(\Exception::class);
-	  $h = $this->crear("Nombre3", "Apellido3", "11111111", ,[2000,0,1000,1000]);
+	  $h = $this->crear("Nombre3", "Apellido3", "11111111", [2000,0,1000,1000]);
 	}
-	  
+
 	public function testSePuedeCrearYObtenerComision() {
 	  $f = $this->crear("Nombre1", "Apellido1", "11111111", 35000, [2000,5000,1000,1000]);
 	  $this->assertEquals(112.5, $f->calcularComision());
