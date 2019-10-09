@@ -32,22 +32,32 @@ class FuncionesBasicasTest extends \PHPUnit\Framework\TestCase {
 
 	public function testNoSePuedeCrearConNombreVacio() {
 	  $this->expectException(\Exception::class);
-	  $h = $this->crear("", "Apellido3", "11111111", 35000, [2000,0,1000,1000]);
+	  $h = $this->crear("", "Apellido3", "11111111", 35000, [2000,5000,1000,1000]);
 	}
 
 	public function testNoSePuedeCrearConApellidoVacio() {
 	  $this->expectException(\Exception::class);
-	  $h = $this->crear("Nombre3", "", "11111111", 35000, [2000,0,1000,1000]);
+	  $h = $this->crear("Nombre3", "", "11111111", 35000, [2000,5000,1000,1000]);
 	}
 
 	public function testNoSePuedeCrearConDNIVacio() {
 	  $this->expectException(\Exception::class);
-	  $h = $this->crear("Nombre3", "Apellido3", "", 35000, [2000,0,1000,1000]);
+	  $h = $this->crear("Nombre3", "Apellido3", "", 35000, [2000,5000,1000,1000]);
 	}
 
 	public function testNoSePuedeCrearConSalarioVacio() {
 	  $this->expectException(\Exception::class);
-	  $h = $this->crear("Nombre3", "Apellido3", "11111111", [2000,0,1000,1000]);
+	  $h = $this->crear("Nombre3", "Apellido3", "11111111", [2000,5000,1000,1000]);
+	}
+
+	public function testElDNINoContieneLetras() {
+		$this->expectException(\Exception::class);
+		$h = $this->crear("Nombre3", "Apellido3", "11a11111", [2000,5000,1000,1000]);
+	}
+
+	public function testGetDeEmpleadoEventualCuandoNoSeEspecificaElSectorDelEmpleado(){
+		$h = $this->crear("Nombre3", "Apellido3", "11111111", [2000,5000,1000,1000]);
+		$this->assertEquals("No Especificado", $h->getSector());
 	}
 
 	public function testSePuedeCrearYObtenerComision() {
