@@ -68,23 +68,23 @@ class FuncionesBasicasTest extends \PHPUnit\Framework\TestCase {
 // Pruebas para clase EmpleadoEventual
 
 	public function testSePuedeCrearYObtenerComision() {
-	  $f = $this->crear("Nombre1", "Apellido1", "11111111", 35000, [2000,5000,1000,1000]);
+	  $f = $this->crear("Nombre1", "Apellido1", "11111111", "35000", ["2000","5000","1000","1000"]);
 	  $this->assertEquals(112.5, $f->calcularComision());
 	}
 
 	public function testSePuedeCrearYCalcularIngresoTotal() {
-	  $g = $this->crear("Nombre2", "Apellido2", "11111111", 35000, [2000,5000,1000,1000]);
+	  $g = $this->crear("Nombre2", "Apellido2", "11111111", "35000", ["2000","5000","1000","1000"]);
 	  $this->assertEquals(35112.5, $g->calcularIngresoTotal());
 	}
 
 	public function testNoSePuedeCrearConMontoCero() {
 	  $this->expectException(\Exception::class);
-	  $h = $this->crear("Nombre3", "Apellido3", "11111111", 35000, [2000,0,1000,1000]);
+	  $h = $this->crear("Nombre3", "Apellido3", "11111111", "35000", ["2000","0","1000","1000"]);
 	}
 
 	public function testNoSePuedeCrearConMontoNegativo() {
 	  $this->expectException(\Exception::class);
-	  $i = $this->crear("Nombre4", "Apellido4", "11111111", 35000, [2000,-1000,1000,1000]);
+	  $i = $this->crear("Nombre4", "Apellido4", "11111111", "35000", ["2000","-5000","1000","1000"]);
 	}
 
 //Pruebas para EmpleadoPermanente
