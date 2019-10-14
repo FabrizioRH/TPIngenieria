@@ -2,63 +2,70 @@
 
 class FuncionesBasicasTest extends \PHPUnit\Framework\TestCase {
 
-// Pruebas para EmpleadoEventual
+// Pruebas para ambas clases
 
 	public function testSePuedeCrearYObtenerNombreYApellido() {
-	  $a = $this->crear("Nombre1", "Apellido1", "11111111", 35000, [2000,5000,1000,1000]);
+	  $a = $this->crear("Nombre1", "Apellido1", "11111111", "35000");
 	  $this->assertEquals("Nombre1 Apellido1", $a->getNombreApellido());
 	}
 
 	public function testSePuedeCrearYObtenerDNI() {
-	  $b = $this->crear("Nombre1", "Apellido1", "11111111", 35000, [2000,5000,1000,1000]);
+	  $b = $this->crear("Nombre1", "Apellido1", "11111111", "35000");
 	  $this->assertEquals("11111111", $b->getDNI());
 	}
 
 	public function testSePuedeCrearYObtenerSalario() {
-	  $c = $this->crear("Nombre1", "Apellido1", "11111111", 35000, [2000,5000,1000,1000]);
+	  $c = $this->crear("Nombre1", "Apellido1", "11111111", "35000");
 	  $this->assertEquals("35000", $c->getSalario());
 	}
 
 	public function testSePuedeCrearSetearSectorYObtenerSector() {
-	  $d = $this->crear("Nombre1", "Apellido1", "11111111", 35000, [2000,5000,1000,1000]);
-	  $d->setSector("Primer Sector");
-	  $this->assertEquals("Primer Sector", $d->getSector());
+	  $d = $this->crear("Nombre1", "Apellido1", "11111111", "35000");
+	  $d->setSector("Prueba de sector");
+	  $this->assertEquals("Prueba de sector", $d->getSector());
 	}
 
 	public function testSePuedeCrearYUsarElMetodotostring() {
-	  $e = $this->crear("Nombre1", "Apellido1", "11111111", 35000, [2000,5000,1000,1000]);
+	  $e = $this->crear("Nombre1", "Apellido1", "11111111", "35000");
 	  $this->assertEquals("Nombre1 Apellido 11111111 35000", $e->__toString());
 	}
 
 	public function testNoSePuedeCrearConNombreVacio() {
 	  $this->expectException(\Exception::class);
-	  $h = $this->crear("", "Apellido3", "11111111", 35000, [2000,5000,1000,1000]);
+	  $h = $this->crear("", "Apellido3", "11111111", "35000");
 	}
 
 	public function testNoSePuedeCrearConApellidoVacio() {
 	  $this->expectException(\Exception::class);
-	  $h = $this->crear("Nombre3", "", "11111111", 35000, [2000,5000,1000,1000]);
+	  $h = $this->crear("Nombre3", "", "11111111", "35000");
 	}
 
 	public function testNoSePuedeCrearConDNIVacio() {
 	  $this->expectException(\Exception::class);
-	  $h = $this->crear("Nombre3", "Apellido3", "", 35000, [2000,5000,1000,1000]);
+	  $h = $this->crear("Nombre3", "Apellido3", "", "35000");
 	}
 
 	public function testNoSePuedeCrearConSalarioVacio() {
 	  $this->expectException(\Exception::class);
-	  $h = $this->crear("Nombre3", "Apellido3", "11111111", [2000,5000,1000,1000]);
+	  $h = $this->crear("Nombre3", "Apellido3", "11111111", "");
 	}
 
 	public function testElDNINoContieneLetras() {
 		$this->expectException(\Exception::class);
-		$h = $this->crear("Nombre3", "Apellido3", "11a11111", [2000,5000,1000,1000]);
+		$h = $this->crear("Nombre3", "Apellido3", "11a11111", "35000");
 	}
 
-	public function testGetDeEmpleadoEventualCuandoNoSeEspecificaElSectorDelEmpleado(){
-		$h = $this->crear("Nombre3", "Apellido3", "11111111", [2000,5000,1000,1000]);
-		$this->assertEquals("No Especificado", $h->getSector());
+	public function testElDNINoContieneCaracteresEspeciales() {
+		$this->expectException(\Exception::class);
+		$h = $this->crear("Nombre3", "Apellido3", "11!11?1/", "35000");
 	}
+
+	public function testResultadoDeGetSectorCuandoSectorNoEstaEspedificado(){
+		$h = $this->crear("Nombre3", "Apellido3", "11111111", "35000");
+		$this->assertEquals("No especificado", $h->getSector());
+	}
+
+// Pruebas para clase EmpleadoEventual
 
 	public function testSePuedeCrearYObtenerComision() {
 	  $f = $this->crear("Nombre1", "Apellido1", "11111111", 35000, [2000,5000,1000,1000]);
