@@ -1,6 +1,6 @@
 <?php
 
-class FuncionesBasicasTest extends \PHPUnit\Framework\TestCase {
+class TestsComunesParaAmbosTiposDeEmpleados extends \PHPUnit\Framework\TestCase {
 
 // Pruebas para ambas clases
 
@@ -65,7 +65,7 @@ class FuncionesBasicasTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals("No especificado", $h->getSector());
 	}
 
-// Pruebas para clase EmpleadoEventual
+/*// Pruebas para clase EmpleadoEventual
 
 	public function testSePuedeCrearYObtenerComision() {
 	  $f = $this->crear("Nombre1", "Apellido1", "11111111", "35000", ["2000","5000","1000","1000"]);
@@ -86,6 +86,7 @@ class FuncionesBasicasTest extends \PHPUnit\Framework\TestCase {
 	  $this->expectException(\Exception::class);
 	  $i = $this->crear("Nombre4", "Apellido4", "11111111", "35000", ["2000","-5000","1000","1000"]);
 	}
+*/
 
 //Pruebas para EmpleadoPermanente
 
