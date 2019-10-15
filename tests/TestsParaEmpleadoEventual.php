@@ -5,13 +5,13 @@ require_once "DatosEmpleado.php";
 
 class TestsParEmpleadoEventual extends TestsComunesParaAmbosTiposDeEmpleados {
 
-    public function crear(
+    public function crear (
         // Datos para el método crear
         $nombre = NOMBRE,
         $apellido = APELLIDO,
-        $dni = DNI
+        $dni = DNI,
         $salario = SALARIO,
-        $montos = MONTOS,
+        $montos = MONTOS
       ) {
 
         // Instancia la clase con los parámetross del método

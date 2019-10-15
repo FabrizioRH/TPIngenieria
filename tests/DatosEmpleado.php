@@ -4,5 +4,5 @@ define("NOMBRE", "Nombre1");
 define("APELLIDO", "Apellido1");
 define("DNI", "11111111");
 define("SALARIO", "35000");
-define("MONTOS", [])
-}
+define("MONTOS", []);
+
