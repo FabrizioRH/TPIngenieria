@@ -3,7 +3,7 @@
 require_once "TestsComunesParaAmbosTiposDeEmpleados.php";
 require_once "DatosEmpleado.php";
 
-class TestsParEmpleadoEventual extends TestsComunesParaAmbosTiposDeEmpleados {
+class TestsParaEmpleadoEventual extends TestsComunesParaAmbosTiposDeEmpleados {
 
     public function crear (
         // Datos para el método crear
