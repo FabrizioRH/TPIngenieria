@@ -21,7 +21,7 @@ abstract class TestsComunesParaAmbosTiposDeEmpleados extends \PHPUnit\Framework\
 	}
 
 	public function testSePuedeSetearYUsarGetSector(){
-		$sectorParaAsignar = Deposito;
+		$sectorParaAsignar = "Deposito";
 		$ne = $this->crear();
 		$ne->setSector($sectorParaAsignar);
 		$this->assertEquals($sectorParaAsignar, $ne->getSector());

@@ -5,37 +5,75 @@ require_once "DatosEmpleado.php";
 
 class TestsParaEmpleadoPermanente extends TestsComunesParaAmbosTiposDeEmpleados {
 
-public function testGetFechaIngresoParaUnaFechaDeIngresoIngresadaManualmente() {
-	$i = $this->crear("Nombre4", "Apellido4", "11111111", "35000", "2019-10-10");
-	$this->assertEquals("2019-10-10", $i->getFechaIngreso());
-}
+		public function crear(
+			// Datos para el método crear
+			$nombre = NOMBRE,
+			$apellido = APELLIDO,
+			$dni = DNI,
+			$salario = SALARIO,
+			$fechaIngreso = null
+	) {
 
-public function testCalcularComisionConResultadoEsperadoRespectoAlDia141019() {
-	$i = $this->crear("Nombre4", "Apellido4", "11111111", "35000", "2019-10-10");
-	$this->assertEquals(4, $i->calcularComision());
-}
+		  // Instancia la clase con los parámetross del método
+			$ne = new \App\EmpleadoPermanente(
+					$nombre,
+					$apellido,
+					$dni,
+					$salario,
+					$fechaIngreso
+			);
+			return $ne;
+	}
 
-public function testCalcularIngresoTotalConResultadoEsperadoRespectoAlDia141019() {
-	$i = $this->crear("Nombre4", "Apellido4", "11111111", "35000", "2019-10-10");
-	$this->assertEquals(36400, $i->calcularIngresoTotal());
-}
+	public function testGetFechaIngreso(){
+			$ne = $this->crear();
+			$this->assertEquals(is_a($ne->getFechaIngreso(), 'DateTime'), true);
+	}
 
-public function testCalcularantiguedadConResultadoEsperadoRespectoAlDia141019() {
-	$i = $this->crear("Nombre4", "Apellido4", "11111111", "35000", "2012-10-10");
-	$this->assertEquals(2560, $i->calcularAntiguedad());
-}
+	public function testCalcularComision() {
+			$fechaDeIngreso = new \DateTime("-2 years");
+			$fechaActual = new \DateTime();
+			$antiguedad = $fechaDeIngreso->diff($fechaActual);
+			$ne = $this->crear($nombre, $apellido, $dni, $salario, $fechaDeIngreso=$fechaDeIngreso);
+			$comision = $antiguedad->y . "%";
+			$this->assertEquals($comision, $ne->calcularComision());
+	}
 
-public function testGetFechaIngresoParaUnaFechaDeIngresoSinEspecificarConRespectoAlDia141019() {
-	$i = $this->crear("Nombre4", "Apellido4", "11111111", "35000");
-	$this->assertEquals("2019-10-14", $i->getFechaIngreso());
-}
+	public function testCalcularIngresoTotal() {
+			$fechaDeIngreso = new \DateTime("-2 years");
+			$fechaActual = new \DateTime();
+			$antiguedad = $fechaDeIngreso->diff($fechaActual);
+			$ingresoTotal = SALARIO + ((SALARIO * $antiguedad->y ) / 100);
+			$ne = $this->crear($nombre, $apellido, $dni, $salario, $fechaDeIngreso=$fechaDeIngreso);
+			$this->assertEquals($ingresoTotal, $ne->calcularIngresoTotal());
+	}
 
-public function testCalcularAntiguedadParaUnaFechaDeIngresoSinEspecificarConRespectoAlDia141019() {
-	$i = $this->crear("Nombre4", "Apellido4", "11111111", "35000");
-	$this->assertEquals(0, $i->getFechaIngreso());
-}
+	public function testCalcularAntiguedad() {
+			$fechaDeIngreso = new \DateTime("- 2 years");
+			$fechaActual = new \DateTime();
+			$antiguedad = $fechaDeIngreso->diff($fechaActual);
+			$ne = $this->crear($nombre, $apellido, $dni, $salario, $fechaDeIngreso=$fechaDeIngreso);
+			$this->assertEquals($ne->calcularAntiguedad(), $antiguedad->y);
+	}
 
-public function testNoSePuedeCrearEmpleadoConFechaDeIngresoPosteriorALaActualConRespectoAlDia141019() {
-	$this->expectException(\Exception::class);
-	$i = $this->crear("Nombre4", "Apellido4", "11111111", "35000", "2019-10-20");
+	public function testGetFechaDeIngresoSiLaFechaDeIngresoNoFueProporcionada(){
+			$ne = $this->crear();
+			$fechaDeHoy = new \DateTime();
+			$resultadoEsperado = $fechaDeHoy->format('Y-m-d');
+			$resultadoObtenido = $ne->getFechaIngreso();
+			$resultadoObtenido = $resultadoObtenido->format('Y-m-d');
+			$this->assertEquals($resultadoEsperado, $resultadoObtenido);
+	}
+
+	public function testCalcularAntiguedadSiLaFechaDeIngresoNoFueProporcionada(){
+			$ne = $this->crear();
+			$this->assertEquals("0" ,$ne->calcularAntiguedad());
+	}
+
+	public function testIngresoDeFechaFutura() {
+			$this->expectException(\Exception::class);
+			$fechaActual = new \DateTime();
+			$fechaFutura = $fechaActual->add(new \DateInterval('P10D'));
+			$ne = $this->crear($nombre, $apellido, $dni, $salario, $fechaIngreso=$fechaFutura);
+	}
 }
