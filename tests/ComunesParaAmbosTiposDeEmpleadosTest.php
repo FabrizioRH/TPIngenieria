@@ -55,12 +55,12 @@ abstract class ComunesParaAmbosTiposDeEmpleadosTest extends \PHPUnit\Framework\T
 
 	public function testElDNINoContieneLetras() {
 		$this->expectException(\Exception::class);
-		$ne = $this->crear($dni = "11a11111");
+		$ne = $this->crear($dni = "a1111111");
 	}
 
 	public function testElDNINoContieneCaracteresEspeciales() {
 		$this->expectException(\Exception::class);
-		$ne = $this->crear($dni = "11!11?1/");
+		$ne = $this->crear($dni = "!1111?1/");
 	}
 
 	public function testResultadoDeGetSectorCuandoSectorNoEstaEspedificado(){
