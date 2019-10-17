@@ -1,8 +1,8 @@
 <?php
 
-require_once "DatosEmpleado.php";
+require_once "DatosEmpleadoTest.php";
 
-abstract class TestsComunesParaAmbosTiposDeEmpleados extends \PHPUnit\Framework\TestCase {
+abstract class ComunesParaAmbosTiposDeEmpleadosTest extends \PHPUnit\Framework\TestCase {
 
 	public function testObtenerNombreYApellido() {
 		$resultado = NOMBRE . " " . APELLIDO;

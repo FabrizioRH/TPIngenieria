@@ -1,9 +1,9 @@
 <?php
 
-require_once "TestsComunesParaAmbosTiposDeEmpleados.php";
-require_once "DatosEmpleado.php";
+require_once "ComunesParaAmbosTiposDeEmpleadosTest.php";
+require_once "DatosEmpleadoTest.php";
 
-class TestsParaEmpleadoPermanente extends TestsComunesParaAmbosTiposDeEmpleados {
+class ParaEmpleadoPermanenteTest extends ComunesParaAmbosTiposDeEmpleadosTest {
 
 		public function crear(
 			// Datos para el método crear
