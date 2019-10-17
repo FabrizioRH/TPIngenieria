@@ -7,9 +7,9 @@ class TestsParaEmpleadoPermanente extends TestsComunesParaAmbosTiposDeEmpleados 
 
 		public function crear(
 			// Datos para el método crear
+			$dni = DNI,
 			$nombre = NOMBRE,
 			$apellido = APELLIDO,
-			$dni = DNI,
 			$salario = SALARIO,
 			$fechaIngreso = null
 	) {
@@ -44,7 +44,7 @@ class TestsParaEmpleadoPermanente extends TestsComunesParaAmbosTiposDeEmpleados 
 			$fechaActual = new \DateTime();
 			$antiguedad = $fechaDeIngreso->diff($fechaActual);
 			$ingresoTotal = SALARIO + ((SALARIO * $antiguedad->y ) / 100);
-			$ne = $this->crear($nombre, $apellido, $dni, $salario, $fechaDeIngreso=$fechaDeIngreso);
+			$ne = $this->crear($dni = DNI, $nombre, $apellido, $salario, $fechaDeIngreso=$fechaDeIngreso);
 			$this->assertEquals($ingresoTotal, $ne->calcularIngresoTotal());
 	}
 
@@ -52,7 +52,7 @@ class TestsParaEmpleadoPermanente extends TestsComunesParaAmbosTiposDeEmpleados 
 			$fechaDeIngreso = new \DateTime("- 2 years");
 			$fechaActual = new \DateTime();
 			$antiguedad = $fechaDeIngreso->diff($fechaActual);
-			$ne = $this->crear($nombre, $apellido, $dni, $salario, $fechaDeIngreso=$fechaDeIngreso);
+			$ne = $this->crear($dni = DNI, $nombre, $apellido, $salario, $fechaDeIngreso=$fechaDeIngreso);
 			$this->assertEquals($ne->calcularAntiguedad(), $antiguedad->y);
 	}
 
@@ -74,6 +74,6 @@ class TestsParaEmpleadoPermanente extends TestsComunesParaAmbosTiposDeEmpleados 
 			$this->expectException(\Exception::class);
 			$fechaActual = new \DateTime();
 			$fechaFutura = $fechaActual->add(new \DateInterval('P10D'));
-			$ne = $this->crear($nombre, $apellido, $dni, $salario, $fechaIngreso=$fechaFutura);
+			$ne = $this->crear($dni = DNI, $nombre, $apellido, $salario, $fechaIngreso=$fechaFutura);
 	}
 }
