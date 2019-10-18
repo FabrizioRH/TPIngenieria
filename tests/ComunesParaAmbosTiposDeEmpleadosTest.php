@@ -35,7 +35,7 @@ abstract class ComunesParaAmbosTiposDeEmpleadosTest extends \PHPUnit\Framework\T
 
 	public function testNoSePuedeCrearConNombreVacio() {
 	  $this->expectException(\Exception::class);
-	  $ne = $this->crear($nombre = "");
+	  $ne = $this->crear(null, $nombre = "");
 	}
 
 	public function testNoSePuedeCrearConApellidoVacio() {

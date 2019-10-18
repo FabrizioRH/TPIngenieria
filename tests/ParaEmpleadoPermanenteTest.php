@@ -7,12 +7,15 @@ class ParaEmpleadoPermanenteTest extends ComunesParaAmbosTiposDeEmpleadosTest {
 
 		public function crear(
 			// Datos para el método crear
+			$fechaIngreso = null,
 			$dni = DNI,
 			$nombre = NOMBRE,
 			$apellido = APELLIDO,
-			$salario = SALARIO,
-			$fechaIngreso = null
-	) {
+			$salario = SALARIO
+		) {
+			if (is_null($fechaIngreso)) {
+				$fechaIngreso = new \DateTime();
+			}
 
 		  // Instancia la clase con los parámetross del método
 			$ne = new \App\EmpleadoPermanente(
@@ -34,7 +37,7 @@ class ParaEmpleadoPermanenteTest extends ComunesParaAmbosTiposDeEmpleadosTest {
 			$fechaDeIngreso = new \DateTime("-2 years");
 			$fechaActual = new \DateTime();
 			$antiguedad = $fechaDeIngreso->diff($fechaActual);
-			$ne = $this->crear($nombre, $apellido, $dni, $salario, $fechaDeIngreso=$fechaDeIngreso);
+			$ne = $this->crear($fechaDeIngreso);
 			$comision = $antiguedad->y . "%";
 			$this->assertEquals($comision, $ne->calcularComision());
 	}
@@ -44,7 +47,7 @@ class ParaEmpleadoPermanenteTest extends ComunesParaAmbosTiposDeEmpleadosTest {
 			$fechaActual = new \DateTime();
 			$antiguedad = $fechaDeIngreso->diff($fechaActual);
 			$ingresoTotal = SALARIO + ((SALARIO * $antiguedad->y ) / 100);
-			$ne = $this->crear($dni = DNI, $nombre, $apellido, $salario, $fechaDeIngreso=$fechaDeIngreso);
+			$ne = $this->crear($fechaDeIngreso);
 			$this->assertEquals($ingresoTotal, $ne->calcularIngresoTotal());
 	}
 
@@ -52,7 +55,7 @@ class ParaEmpleadoPermanenteTest extends ComunesParaAmbosTiposDeEmpleadosTest {
 			$fechaDeIngreso = new \DateTime("- 2 years");
 			$fechaActual = new \DateTime();
 			$antiguedad = $fechaDeIngreso->diff($fechaActual);
-			$ne = $this->crear($dni = DNI, $nombre, $apellido, $salario, $fechaDeIngreso=$fechaDeIngreso);
+			$ne = $this->crear($fechaDeIngreso);
 			$this->assertEquals($ne->calcularAntiguedad(), $antiguedad->y);
 	}
 
@@ -74,6 +77,6 @@ class ParaEmpleadoPermanenteTest extends ComunesParaAmbosTiposDeEmpleadosTest {
 			$this->expectException(\Exception::class);
 			$fechaActual = new \DateTime();
 			$fechaFutura = $fechaActual->add(new \DateInterval('P10D'));
-			$ne = $this->crear($dni = DNI, $nombre, $apellido, $salario, $fechaIngreso=$fechaFutura);
+			$ne = $this->crear($fechaIngreso);
 	}
 }
