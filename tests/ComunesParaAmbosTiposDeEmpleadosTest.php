@@ -5,7 +5,7 @@ require_once "DatosEmpleadoTest.php";
 abstract class ComunesParaAmbosTiposDeEmpleadosTest extends \PHPUnit\Framework\TestCase {
 
 	public function testObtenerNombreYApellido() {
-		$resultado = NOMBRE . " " . APELLIDO;
+	  $resultado = NOMBRE . " " . APELLIDO;
 	  $ne = $this->crear();
 	  $this->assertEquals($resultado, $ne->getNombreApellido());
 	}
@@ -35,32 +35,32 @@ abstract class ComunesParaAmbosTiposDeEmpleadosTest extends \PHPUnit\Framework\T
 
 	public function testNoSePuedeCrearConNombreVacio() {
 	  $this->expectException(\Exception::class);
-	  $ne = $this->crear(null, $nombre = "");
+	  $ne = $this->crear($dni = DNI, $nombre = "", $apellido = APELLIDO, $salario = SALARIO);
 	}
 
 	public function testNoSePuedeCrearConApellidoVacio() {
 	  $this->expectException(\Exception::class);
-	  $ne = $this->crear($apellido = "");
+	  $ne = $this->crear($dni = DNI, $nombre = NOMBRE, $apellido = "", $salario = SALARIO);
 	}
 
 	public function testNoSePuedeCrearConDNIVacio() {
 	  $this->expectException(\Exception::class);
-	  $ne = $this->crear($dni = "");
+	  $ne = $this->crear($dni = "", $nombre = NOMBRE, $apellido = APELLIDO, $salario = SALARIO);
 	}
 
 	public function testNoSePuedeCrearConSalarioVacio() {
 	  $this->expectException(\Exception::class);
-	  $ne = $this->crear($salario = "");
+	  $ne = $this->crear($dni = DNI, $nombre = NOMBRE, $apellido = APELLIDO, $salario = "");
 	}
 
 	public function testElDNINoContieneLetras() {
 		$this->expectException(\Exception::class);
-		$ne = $this->crear($dni = "a1111111");
+		$ne = $this->crear($dni = "a1111111", $nombre = NOMBRE, $apellido = APELLIDO, $salario = SALARIO);
 	}
 
 	public function testElDNINoContieneCaracteresEspeciales() {
 		$this->expectException(\Exception::class);
-		$ne = $this->crear($dni = "!1111?1/");
+		$ne = $this->crear($dni = "!1111?1/", $nombre = NOMBRE, $apellido = APELLIDO, $salario = SALARIO);
 	}
 
 	public function testResultadoDeGetSectorCuandoSectorNoEstaEspedificado(){

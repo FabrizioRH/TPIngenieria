@@ -7,11 +7,11 @@ class ParaEmpleadoPermanenteTest extends ComunesParaAmbosTiposDeEmpleadosTest {
 
 		public function crear(
 			// Datos para el método crear
-			$fechaIngreso = null,
-			$dni = DNI,
 			$nombre = NOMBRE,
 			$apellido = APELLIDO,
-			$salario = SALARIO
+			$dni = DNI,
+			$salario = SALARIO,
+			$fechaIngreso = null
 		) {
 			if (is_null($fechaIngreso)) {
 				$fechaIngreso = new \DateTime();
@@ -34,28 +34,28 @@ class ParaEmpleadoPermanenteTest extends ComunesParaAmbosTiposDeEmpleadosTest {
 	}
 
 	public function testCalcularComision() {
-			$fechaDeIngreso = new \DateTime("-2 years");
+			$fechaIngreso = new \DateTime("-2 years");
 			$fechaActual = new \DateTime();
-			$antiguedad = $fechaDeIngreso->diff($fechaActual);
-			$ne = $this->crear($fechaDeIngreso);
+			$antiguedad = $fechaIngreso->diff($fechaActual);
+			$ne = $this->crear($nombre = NOMBRE, $apellido = APELLIDO, $dni = DNI, $salario = SALARIO, $fechaIngreso = $fechaIngreso);
 			$comision = $antiguedad->y . "%";
 			$this->assertEquals($comision, $ne->calcularComision());
 	}
 
 	public function testCalcularIngresoTotal() {
-			$fechaDeIngreso = new \DateTime("-2 years");
+			$fechaIngreso = new \DateTime("-2 years");
 			$fechaActual = new \DateTime();
-			$antiguedad = $fechaDeIngreso->diff($fechaActual);
+			$antiguedad = $fechaIngreso->diff($fechaActual);
 			$ingresoTotal = SALARIO + ((SALARIO * $antiguedad->y ) / 100);
-			$ne = $this->crear($fechaDeIngreso);
+			$ne = $this->crear($nombre = NOMBRE, $apellido = APELLIDO, $dni = DNI, $salario = SALARIO, $fechaIngreso = $fechaIngreso);
 			$this->assertEquals($ingresoTotal, $ne->calcularIngresoTotal());
 	}
 
 	public function testCalcularAntiguedad() {
-			$fechaDeIngreso = new \DateTime("- 2 years");
+			$fechaIngreso = new \DateTime("- 2 years");
 			$fechaActual = new \DateTime();
-			$antiguedad = $fechaDeIngreso->diff($fechaActual);
-			$ne = $this->crear($fechaDeIngreso);
+			$antiguedad = $fechaIngreso->diff($fechaActual);
+			$ne = $this->crear($nombre = NOMBRE, $apellido = APELLIDO, $dni =DNI, $salario = SALARIO, $fechaIngreso = $fechaIngreso);
 			$this->assertEquals($ne->calcularAntiguedad(), $antiguedad->y);
 	}
 
@@ -77,6 +77,6 @@ class ParaEmpleadoPermanenteTest extends ComunesParaAmbosTiposDeEmpleadosTest {
 			$this->expectException(\Exception::class);
 			$fechaActual = new \DateTime();
 			$fechaFutura = $fechaActual->add(new \DateInterval('P10D'));
-			$ne = $this->crear($fechaIngreso);
+			$ne = $this->crear($nombre = NOMBRE, $apellido = APELLIDO, $dni = DNI, $salario = SALARIO, $fechaIngreso = $fechaFutura);
 	}
 }

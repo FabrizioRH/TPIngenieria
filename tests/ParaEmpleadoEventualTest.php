@@ -8,20 +8,20 @@ class ParaEmpleadoEventualTest extends ComunesParaAmbosTiposDeEmpleadosTest {
 
     public function crear (
         // Datos para el método crear   
-	$montos = MONTOS,    
-	$dni = DNI,    
+	$nombre = NOMBRE,    
+	$apellido = APELLIDO,    
+	$dni = DNI,	
 	$salario = SALARIO,
-	$nombre = NOMBRE,
-        $apellido = APELLIDO
+	$montos = MONTOS
       ) {
 
         // Instancia la clase con los parámetross del método
         $ne = new \App\EmpleadoEventual(
-	    $montos,	
-	    $dni,
-	    $salario,
 	    $nombre,
-            $apellido
+    	    $apellido,
+	    $dni, 
+	    $salario,
+	    $montos
         );
         return $ne;
     }
@@ -29,7 +29,7 @@ class ParaEmpleadoEventualTest extends ComunesParaAmbosTiposDeEmpleadosTest {
     public function testSePuedeObtenerComision() {
         $montosDeLasVentas = [2000, 5000, 1000, 1000];
         $total = ((2000 + 5000 + 1000 + 1000) / 4) * 0.05;
-        $ne = $this->crear($montos = $montosDeLasVentas, $dni = DNI, $salario = SALARIO);
+        $ne = $this->crear($nombre = NOMBRE, $apellido = APELLIDO, $dni = DNI, $salario = SALARIO, $montos = $montosDeLasVentas);
         $this->assertEquals($total, $ne->calcularComision());
     }
 
@@ -37,17 +37,17 @@ class ParaEmpleadoEventualTest extends ComunesParaAmbosTiposDeEmpleadosTest {
         $montosDeLasVentas = [2000, 5000, 1000, 1000];
         $comision = ((2000 + 5000 + 1000 + 1000) / 4) * 0.05;
         $total = $comision + SALARIO;
-        $ne = $this->crear($montos = $montosDeLaVentas, $dni = DNI, $salario = SALARIO);
+        $ne = $this->crear($nombre = NOMBRE, $apellido = APELLIDO, $dni = DNI, $salario = SALARIO, $montos = $montosDeLasVentas);
         $this->assertEquals($total, $ne->calcularIngresoTotal());
     }
 
     public function testNoSePuedeCrearConMontoCero() {
         $this->expectException(\Exception::class);
-        $ne = $this->crear($montosDeLasVentas = [2000,0,1000,1000], $dni = DNI, $salario=SALARIO);
+        $ne = $this->crear($nombre = NOMBRE, $apellido = APELLIDO, $dni = DNI, $salario = SALARIO, $montosDeLasVentas = [2000,0,1000,1000]);
     }
 
     public function testNoSePuedeCrearConMontoNegativo() {
         $this->expectException(\Exception::class);
-        $ne = $this->crear($montosDeLasVentas = [2000, -5000, 1000, 1000], $dni = DNI, $salario = SALARIO);
+        $ne = $this->crear($nombre = NOMBRE, $apellido = APELLIDO, $dni = DNI, $salario = SALARIO, $montosDeLasVentas = [2000, -5000, 1000, 1000]);
     }
 }
