@@ -1,7 +1,7 @@
 {
     "name": "fabri/tp-ingenieria",
     "require": {
-        "phpunit/phpunit": "^8.4"
+        "phpunit/phpunit": "^12.5"
     },
     "autoload": {
         "psr-4": {
